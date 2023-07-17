@@ -25,9 +25,6 @@ public class Produto {
 
     private double valor;
 
-    @ManyToMany(mappedBy = "listaProdutos")
-    private List<Venda> vendas = new ArrayList<>();
-
     public Produto(DadosCadastrarProduto dados) {
         this.nome = dados.nome();
         this.valor = dados.valor();
