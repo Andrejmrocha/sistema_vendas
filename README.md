@@ -35,7 +35,7 @@ A aplicação possui crud de cliente, produto e venda. Na página inicial foram 
 
 ## 📊 Banco de Dados <a name="bd"></a>
 <h1 align="center">
-  <img alt="database_image" title="#" src="./imagens/database.png" />
+  <img title="#" src="./imagens/database.png" />
 </h1>
 
 ## 📸 Screenshots <a name="screenshots"></a>
