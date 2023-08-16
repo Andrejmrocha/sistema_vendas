@@ -24,7 +24,7 @@
 
 ## 🧐 Sobre <a name = "sobre"></a>
 
-A aplicação possui crud de cliente, produto e vendas. Na página inicial foram desenvolvidos dois relatórios, um para exibir as vendas recentes e outro em formato de gráfico de barras que apresenta as receitas dos últimos 12 meses.
+A aplicação possui crud de cliente, produto e venda. Na página inicial foram desenvolvidos dois relatórios a partir de duas queries personalizadas, um para exibir as vendas recentes e outro em formato de gráfico de barras que apresenta as receitas dos últimos 12 meses.
 
 
 ## ⚠️ Importante! <a name="importante"></a>
@@ -35,16 +35,18 @@ A aplicação possui crud de cliente, produto e vendas. Na página inicial foram
 
 ## 📊 Banco de Dados <a name="bd"></a>
 <h1 align="center">
-  <img alt="" title="#" src="./imagens/database.png" />
+  <img alt="database_image" title="#" src="./imagens/database.png" />
 </h1>
 
 ## 📸 Screenshots <a name="screenshots"></a>
 <h1 align="center">
-  https://github.com/Andrejmrocha/sistema_vendas/assets/104024792/a2666754-2e66-4adb-b357-4053e57ab12a
+    Efetuar login
+    https://github.com/Andrejmrocha/sistema_vendas/assets/104024792/a2666754-2e66-4adb-b357-4053e57ab12a
 </h1>
 
 <h1 align="center">
-  <img alt="" title="#Home" src="./imagens/home.png" />
+    Home
+    <img alt="" title="#Home" src="./imagens/home.png" />
 </h1>
 
 
