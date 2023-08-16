@@ -1,20 +1,19 @@
 package OxePresentes.sistema.Controller;
 
 import OxePresentes.sistema.Domain.cliente.ClienteRepository;
+import OxePresentes.sistema.Domain.produto.DadosListagemProduto;
 import OxePresentes.sistema.Domain.produto.Produto;
 import OxePresentes.sistema.Domain.produto.ProdutoRepository;
-import OxePresentes.sistema.Domain.venda.DadosCadastrarVenda;
-import OxePresentes.sistema.Domain.venda.DadosDetalharVenda;
-import OxePresentes.sistema.Domain.venda.Venda;
-import OxePresentes.sistema.Domain.venda.VendaRepository;
+import OxePresentes.sistema.Domain.venda.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.sql.Date;
@@ -39,7 +38,7 @@ public class VendaController {
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastrarVenda dados,
                                     UriComponentsBuilder uriBuilder){
         var cliente = clienteRepository.getReferenceById(dados.idCliente());
-        var venda = new Venda(dados.valorFrete(), cliente, dados.formaPagamento());
+        var venda = new Venda(dados.valorFrete(), cliente, dados.formaPagamento(), dados.data());
 
 
         dados.listaProdutosId().forEach(id -> venda.adicionarProduto(produtoRepository.getReferenceById(id)));
@@ -50,5 +49,19 @@ public class VendaController {
 
         return ResponseEntity.created(uri).body(new DadosDetalharVenda(venda));
     }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemVenda>> listar(@PageableDefault(
+            value = 6, sort = {"dataVenda"}, direction = Sort.Direction.DESC) Pageable paginacao){
+        var page = vendaRepository.findAll(paginacao).map(DadosListagemVenda::new);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("lista")
+    public ResponseEntity<Page<ListaVendas>> listarVendas(Pageable pageable){
+        var page = vendaRepository.listarVendas(pageable);
+        return ResponseEntity.ok(page);
+    }
+    
 
 }

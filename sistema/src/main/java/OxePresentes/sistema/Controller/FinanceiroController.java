@@ -2,14 +2,23 @@ package OxePresentes.sistema.Controller;
 
 import OxePresentes.sistema.DTO.IntervaloDatas;
 import OxePresentes.sistema.Domain.compra.CompraRepository;
+import OxePresentes.sistema.Domain.venda.Dados12meses;
 import OxePresentes.sistema.Domain.venda.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("financeiro")
@@ -52,6 +61,16 @@ public class FinanceiroController {
         double compras = converterValor(totalCompras);
 
         return ResponseEntity.ok(vendas - compras);
+    }
+
+    @GetMapping("/faturamento12meses")
+    public ResponseEntity<Page<Dados12meses>>faturamento12meses(@PageableDefault(value = 13)
+                                                                Pageable pageable){
+        Date startDate = Date.valueOf(LocalDate.now().minus(1, ChronoUnit.YEARS));
+
+        var page = vendaRepository.getReceitasUltimos12meses(startDate, pageable);
+
+        return ResponseEntity.ok(page);
     }
 
     public Date converterData(String data){

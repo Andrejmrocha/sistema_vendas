@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("produtos")
-@CrossOrigin(origins = "*")
 public class ProdutoController {
 
     @Autowired
@@ -44,19 +43,19 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemProduto>> listar(Pageable paginacao){
+    public ResponseEntity<Page<DadosListagemProduto>> listar(@PageableDefault(value = 50) Pageable paginacao){
         var page = produtoRepository.findAll(paginacao).map(DadosListagemProduto::new);
         return ResponseEntity.ok(page);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity detalhar(@PathVariable Long id){
-//        var produto = produtoRepository.getReferenceById(id);
-//        return ResponseEntity.ok(new DadosDetalharProduto(produto));
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id){
+        var produto = produtoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalharProduto(produto));
+    }
 
-    @GetMapping("/{nome}")
-    public ResponseEntity<Page<DadosListagemProduto>> buscarPorNome(Pageable paginacao, @PathVariable String nome){
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<DadosListagemProduto>> buscarPorNome(Pageable paginacao, @RequestParam(value = "name") String nome){
         var page = produtoRepository.findByNomeContaining(nome, paginacao).map(DadosListagemProduto::new);
         return ResponseEntity.ok(page);
     }

@@ -44,11 +44,11 @@ public class Venda {
 
     private Date dataVenda;
 
-    public Venda(double valorFrete, Cliente cliente, FormaPagamento formaPagamento) {
+    public Venda(double valorFrete, Cliente cliente, FormaPagamento formaPagamento, String data) {
         this.valorFrete = valorFrete;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
-        this.dataVenda = Date.valueOf(LocalDate.now());
+        this.dataVenda = Date.valueOf(data);
         this.valorProdutos = 0.0;
         this.listaProdutos = new ArrayList<>();
     }

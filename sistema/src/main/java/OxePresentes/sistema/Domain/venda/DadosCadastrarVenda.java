@@ -6,6 +6,7 @@ public record DadosCadastrarVenda(
         List<Long> listaProdutosId,
         double valorFrete,
         Long idCliente,
-        FormaPagamento formaPagamento
+        FormaPagamento formaPagamento,
+        String data
 ) {
 }
